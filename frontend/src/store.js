@@ -23,9 +23,13 @@ const cartItemsFromStorage = localStorage.getItem('cartItemsStorage') ? JSON.par
 
 const userInfoFromStorage = localStorage.getItem('userInfoStorage') ? JSON.parse(localStorage.getItem('userInfoStorage')) : null;
 
+const cartShippingData = localStorage.getItem('shippingData') ? JSON.parse(localStorage.getItem('shippingData') ) : {};
+
+// when pull the data to use in website
 const initialState = {
-    cartReducerKey: {cartItems: cartItemsFromStorage},
-    userLoginReducer: {userInfo: userInfoFromStorage}
+    cartReducerKey: {cartItems: cartItemsFromStorage, shippingData: cartShippingData},
+    userLoginReducer: {userInfo: userInfoFromStorage},
+    
 }
 
 const middleware = [thunk]

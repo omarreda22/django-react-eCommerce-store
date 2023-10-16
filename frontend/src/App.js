@@ -11,6 +11,8 @@ import Register from "./pages/Register";
 import Profile from "./pages/Profile";
 import ProfileSettings from "./pages/ProfileSettings";
 import ProfileChangePassword from "./pages/ProfileChangePassword";
+import Shipping from "./pages/Shipping";
+import Checkout from "./pages/Checkout";
 
 function App() {
   return (
@@ -21,6 +23,8 @@ function App() {
           <Route path="/" Component={Home} exact />
           <Route path="/product/:slug" Component={ProductDetails}/>
           <Route path="/cart/:slug?" Component={Cart}/>
+          <Route path="/shipping" Component={Shipping}/>
+          <Route path="/checkout" Component={Checkout}/>
           <Route path="/login" Component={Login} />
           <Route path="/register" Component={Register} />
           <Route path="/profile" Component={Profile}/>

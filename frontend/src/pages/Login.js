@@ -45,7 +45,7 @@ function Login() {
                     <h2 className="mb-4 text-4xl tracking-tight font-extrabold leading-tight text-cyan-700 dark:text-white mb-5">Sign In To 
                     <span className='text-orange-500'> Your Account</span>
                     </h2>
-                    {error && <AlertMessage message={error} color={'failure'}/>}
+                    {error && <AlertMessage message={'Email or Password is Wrond.'} color={'failure'}/>}
                     {loading && <Loader />}
                     <form onSubmit={submitHandler} className="space-y-4 md:space-y-6">
                     <div>
