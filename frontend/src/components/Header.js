@@ -6,6 +6,8 @@ import { Navbar, Dropdown } from 'flowbite-react';
 import { userLogoutAction } from '../actions/userLoginAction';
 import { useNavigate } from 'react-router-dom';
 
+import { useEffect, useState } from 'react';
+
 
 function Header() {
     const userLogin = useSelector(state=>state.userLoginReducer)
@@ -13,6 +15,14 @@ function Header() {
 
     const dispatch = useDispatch()
     const history = useNavigate()
+
+    const userCart = useSelector(state => state.cartReducerKey)
+    const {cartItems} = userCart
+    const [sumItmes, setSumItmes] = useState(0)
+
+    useEffect(()=>{
+      setSumItmes(cartItems.reduce((acc, item)=> acc + item.qty, 0))
+    }, [userCart, cartItems])
     
     
     const handleLogout = () => {
@@ -36,7 +46,7 @@ function Header() {
             <div className="flex md:order-3 text-cyan-700">
               <p className='mt-1 mr-3'>
               <i className="fa-solid fa-cart-shopping mr-1 text-cyan-700"></i>
-                <Link to="/cart">Cart (0)</Link>
+                <Link to="/cart">Cart ({sumItmes})</Link>
               </p>
               
               <Navbar.Toggle />

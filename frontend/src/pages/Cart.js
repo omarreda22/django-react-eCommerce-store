@@ -7,7 +7,6 @@ import { addToCart } from '../actions/cartAction'
 import { useParams, useLocation, useNavigate } from 'react-router-dom'
 import AlertMessage from '../components/Alert';
 import TableRow from '../components/TableRow';
-import CheckoutSteps from '../components/CheckoutSteps';
 
 
 function Cart() {

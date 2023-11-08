@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Button, TextInput, Textarea, Avatar, Select } from 'flowbite-react';
+import { Button, TextInput, Textarea, Avatar, Label, Radio } from 'flowbite-react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 
@@ -19,6 +19,7 @@ function Shipping() {
     const [city, setCity] = useState(shippingData.city)
     const [country, setCountry] = useState(shippingData.country)
     const [postalCode, setPostalCode] = useState(shippingData.postalCode)
+    const [paymentMethod, setPaymentMethod] = useState('')
 
     const dispatch = useDispatch()
 
@@ -28,7 +29,8 @@ function Shipping() {
             'address': address,
             'city': city,
             'country': country,
-            'postalCode': postalCode
+            'postalCode': postalCode,
+            'payment': paymentMethod
         }))
 
         history('/checkout')
@@ -101,6 +103,38 @@ function Shipping() {
                             />
                             </div>
                         </div>
+
+                        <div className=' mt-7'>
+                            <label  className="block mb-2 mt-2 text-sm font-medium text-gray-900 dark:text-white">Payment Method</label>
+                            <div className="mb-2 block text-left border p-5 mt-5 ">
+                            <fieldset
+                                className="flex max-w-md flex-col gap-4 "
+                                id="radio"
+                                >                                
+                                <div className="flex items-center gap-2">
+                                    <Radio
+                                    name="payment_method"
+                                    value="Paypal"
+                                    onChange={(e)=>setPaymentMethod(e.target.value) }
+                                    />
+                                    <Label>
+                                    Paypal or Crdit Card
+                                    </Label>
+                                </div>
+                                <div className="flex items-center gap-2">
+                                    <Radio
+                                    name="payment_method"
+                                    value="Google Pay"
+                                    onChange={(e)=>setPaymentMethod(e.target.value) }
+                                    />
+                                    <Label>
+                                    Google Pay
+                                    </Label>
+                                </div>
+                                
+                                </fieldset>
+                            </div>
+                        </div>
                         </div>
                         </form>
                         }
@@ -170,7 +204,18 @@ function Shipping() {
                 }
                 <Button
                 color='orange'
-                disabled={address === '' || city === '' || postalCode === '' || country === ''}
+                disabled={
+                    address === undefined || 
+                    city === undefined || 
+                    postalCode === undefined || 
+                    country === undefined ||
+                    country === '' ||
+                    address === '' ||
+                    city === '' ||
+                    postalCode === '' ||
+                    paymentMethod === ''
+                
+                }
                 className="mt-7 w-full text-center bg-orange-700 hover:bg-orange-800 text-white ml-auto"
                 onClick={submitHandler}
                 >

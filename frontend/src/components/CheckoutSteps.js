@@ -1,9 +1,8 @@
 
 import { Tabs } from 'flowbite-react';
-import { HiClipboardList, HiUserCircle } from 'react-icons/hi';
+import { HiClipboardList } from 'react-icons/hi';
 import { FaShippingFast} from 'react-icons/fa';
 import { BsFillCartCheckFill} from 'react-icons/bs';
-import { Link } from 'react-router-dom';
 
 
 function CheckoutSteps({step2, active2, step3, active3}) {
