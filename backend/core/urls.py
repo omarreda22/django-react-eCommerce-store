@@ -5,17 +5,13 @@ from django.conf.urls.static import static
 from django.views.generic import TemplateView
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-
-
-    path('web-login/', include('rest_framework.urls')), # login in borwser
-    path('api/user/', include('accounts.urls', namespace='accounts')),
-
-    path('api/products/', include('products.urls', namespace='products')),
-    
+    path("admin/", admin.site.urls),
+    path("web-login/", include("rest_framework.urls")),  # login in borwser
+    path("api/user/", include("accounts.urls", namespace="accounts")),
+    path("api/products/", include("products.urls", namespace="products")),
+    path("api/orders/", include("orders.urls", namespace="orders")),
     # path('', TemplateView.as_view(template_name='index.html')),
     # re_path('.*',  TemplateView.as_view(template_name='index.html')),
-
 ]
 
 

@@ -1,10 +1,11 @@
-from django.urls import re_path
+from django.urls import path
 
-from .views import index
+from . import views
 
-app_name = 'index'
+app_name = "orders"
 
 
 urlpatterns = [
-    re_path('.*/', index)
+    path("add/", views.add_order, name="add_orders"),
+    path("", views.OrdersList.as_view()),
 ]
