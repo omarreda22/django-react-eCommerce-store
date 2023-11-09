@@ -1,13 +1,23 @@
-import { useSelector } from "react-redux"
+import { useEffect } from "react";
+import { useSelector, useDispatch} from "react-redux"
+import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { Avatar, Button } from 'flowbite-react';
 
-
 import CheckoutSteps from "../components/CheckoutSteps"
 import Loader from '../components/Loader';
+import { createOrderAction } from '../actions/orderActions'
+import AlertMessage from "../components/Alert";
+import { ORDER_CREATE_RESET } from "../constants/ordersConstants";
 
 
 function Checkout() {
+    const dispatch = useDispatch()
+    const history = useNavigate()
+
+    const orderCreate = useSelector(state=> state.orderCreateReducer)
+    const {loading_request, order, error, success} = orderCreate 
+
     const getCartData = useSelector(state => state.cartReducerKey)
     const {loading, cartItems, shippingData} = getCartData
 
@@ -16,7 +26,24 @@ function Checkout() {
     const tax = Number((0.082)*totalItemsPrice).toFixed(2)
     const totalPrice = (Number(totalItemsPrice) + Number(shippingPrice) + Number(tax)).toFixed(2)
 
-    
+    useEffect(()=>{
+        if(success){
+            history(`/order/${order._id}`)
+            dispatch({type: ORDER_CREATE_RESET})
+        }
+    }, [success, history])
+
+    const placeOrder = ()=>{
+        dispatch(createOrderAction({
+            orderItems: cartItems,
+            shippingAddress: shippingData,
+            itemsPrice: totalItemsPrice,
+            shippingPrice: shippingPrice,
+            taxPrice: tax,
+            totalPrice: totalPrice
+        }
+        ))
+    }
     return (
         <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-10 lg:max-w-7xl">
         <CheckoutSteps step2 step3 active3 />
@@ -128,13 +155,16 @@ function Checkout() {
                         </th>
                     </tr>
                     
-                    
+                    {loading_request && <Loader />}
+                    {error && <AlertMessage  message={error} color={'failure'}/>}
                     </tbody>
                 </table>
                 
                 <Button 
                     className="mt-7 w-full bg-cyan-700"
+                    onClick={placeOrder}
                     >
+                
                     PLACE ORDER
                 </Button>
             </div>
